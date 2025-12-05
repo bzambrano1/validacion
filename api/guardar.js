@@ -31,20 +31,10 @@ export default async function handler(req, res) {
     );
 
     const data = await respuesta.json();
-
-    if (!respuesta.ok) {
-      return res.status(500).json({
-        error: "Airtable rechazó la solicitud",
-        detalle: data
-      });
-    }
-
-    return res.status(200).json({ ok: true, data });
+    return res.status(200).json(data);
 
   } catch (err) {
-    return res.status(500).json({
-      error: "Error interno",
-      detalle: err.message
-    });
+    console.error("Error enviando a Airtable:", err);
+    return res.status(500).json({ error: "Error interno" });
   }
 }
