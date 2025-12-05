@@ -277,26 +277,20 @@ document.getElementById("btnEnviar").addEventListener("click", async function() 
     return;
   }
 
-  try {
-    const respuesta = await fetch("https://api.airtable.com/v0/applsI1T6WPfXQzt5/tbl2qcoDEfd8uNp9F", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        records: [
-          {
-            fields: {
-              ciudad: ciudad,
-              direccion: direccion,
-              complementos: complementos,
-              numero: numero,
-              archivo: archivoPDF_URL
-            }
-          }
-        ]
-      })
-    });
+ try {
+  const respuesta = await fetch("/api/guardar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      ciudad: ciudad,
+      direccion: direccion,
+      complementos: complementos,
+      numero: numero,
+      archivo: archivoPDF_URL
+    })
+  });
 
     if (!respuesta.ok) {
       alert("Error al guardar en Airtable.");
@@ -328,6 +322,7 @@ window.addEventListener("load", function() {
 
 </body>
 </html>
+
 
 
 
