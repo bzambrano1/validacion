@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   try {
     const respuesta = await fetch(
-      "https://api.airtable.com/v0/applsI1T6WPfXQzt5/tbl2qcoDEfd8uNp9F", 
+      "https://api.airtable.com/v0/applsI1T6WPfXQzt5/tbl2qcoDEfd8uNp9F",
       {
         method: "POST",
         headers: {
@@ -31,9 +31,20 @@ export default async function handler(req, res) {
     );
 
     const data = await respuesta.json();
-    res.status(200).json(data);
+
+    if (!respuesta.ok) {
+      return res.status(500).json({
+        error: "Airtable rechazó la solicitud",
+        detalle: data
+      });
+    }
+
+    return res.status(200).json({ ok: true, data });
 
   } catch (err) {
-    res.status(500).json({ error: "Error interno" });
+    return res.status(500).json({
+      error: "Error interno",
+      detalle: err.message
+    });
   }
 }
